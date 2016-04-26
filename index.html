@@ -25,17 +25,20 @@
 			</tr>
 			<tr ng-repeat="person in persons">
 				<td>
-					<div>Name</div>
-					<div>(job title)</div>
+					<div>{{person.name}}</div>
+					<div>{{person.job}}</div>
 				</td>
-				<td>Age</td>
-				<td>Nickname</td>
-				<td>Employee</td>
-				<td></td>
+				<td>{{person.age}}</td>
+				<td>{{person.nick}}</td>
+				<td>{{person.employee}}</td>
+				<td>Delete</td>
 			</tr>
 		</table>
 	</div>
 
+	<div>
+		<textarea class="form-control" rows="10">{{dump}}</textarea>
+	</div>
 
 	<script src="js/app.js"></script>
 </body>
