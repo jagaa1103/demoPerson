@@ -1,7 +1,14 @@
-var demo = angular.module('demo', ['ui.bootstrap']);
+var demo = angular.module('demo', ['ui.bootstrap', 'chart.js']);
 
-demo.controller('mainCtrl', function($scope, $http, $uibModal){
+demo.controller('mainCtrl', function($scope, $http, $uibModal, $timeout){
 	
+	$scope.data = [];
+	$scope.labels = [];
+	$scope.persons = [];
+	// $scope.series = ['Age'];
+
+	
+
 	init();
 	function init(){
 		$http.get('persons.json').success(function(res){
@@ -10,15 +17,34 @@ demo.controller('mainCtrl', function($scope, $http, $uibModal){
 		}).error(function(err){
 			alert(err);
 		})
+
 	}
 
 	$scope.$watch('persons.length', function(){
 		$scope.dump = JSON.stringify($scope.persons);
+		if($scope.persons.length){
+			$timeout(function(){
+				showGraph();	
+			}, 1000);
+		}
 	})
 
-	$scope.add = function(){
-
+	function showGraph(){
+		var data = [];
+		var labels = [];
+		$scope.persons.forEach(function(person){
+			if(!isNaN(parseInt(person.age))){
+				data.push(parseInt(person.age));
+				labels.push(person.name);	
+			}
+		});
+		// $scope.labels = labels;
+		// 	$scope.data = data;
+		  $scope.labels = labels;
+		  $scope.series = ['Age'];
+		  $scope.data.push(data);
 	}
+
 
 	$scope.delete = function(index){
 		$scope.persons.splice(index, 1);
