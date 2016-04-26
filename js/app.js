@@ -12,8 +12,16 @@ demo.controller('mainCtrl', function($scope, $http){
 		})
 	}
 
-	$scope.$watch('persons', function(){
+	$scope.$watch('persons.length', function(){
 		$scope.dump = JSON.stringify($scope.persons);
 	})
+
+	$scope.add = function(){
+
+	}
+
+	$scope.delete = function(index){
+		$scope.persons.splice(index, 1);
+	}
 });
 
